@@ -40,3 +40,8 @@ class Com:
         self.total_score += now_score
         if self.total_score > 50:
             return
+
+    def check_over_25(self):
+        if self.now_score >= 25:
+            return stop()
+
