@@ -35,3 +35,8 @@ class Com:
                 return
             else:
                 self.now_score += dice_number
+
+    def stop(self):
+        self.total_score += now_score
+        if self.total_score > 50:
+            return
