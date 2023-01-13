@@ -141,6 +141,9 @@ while True:
     if is_win:
         break
     count += 1
+
+    ## bad code ~!@!~@!~@
+
     if computer_number == 1:
         print(f"Player {count+1}'s Turn !")
         while player_2.check_over_25():
