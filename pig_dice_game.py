@@ -117,8 +117,9 @@ computer_number = int(input("Choose Enemy number do you want to fight !!(1~3) >>
 for i in range(computer_number):
     globals()[f"player_{i+2}"] = Computer()
 
-count = 0
+is_win = False
 while True:
+    count = 0
     print("Player 1's Trun !")
     if count%(computer_number+1) == 0:
         choice = input("Choice !! Roll the dice(Y), or STOP(S) >> ")
@@ -128,23 +129,91 @@ while True:
                 if choice == 1:
                     break
                 if choice == 'S':
+                    player_1.stop(player_1.now_score)
+                    if player_1.total_score >= 50:
+                        set_print_format(computer_number)
+                        print("YOU WIN!!!!!!!!!!!!!!!!!!!!!!!!!")
+                        is_win = True
+                        break
                     if player_1.stop(player_1.now_score):
                         break
 
-    count += 1
-    print(f"Player {i+2}'s Turn !")
-    while player_2.check_over_25():
-        if not player_2.roll():
-            break
-
-    if player_2.total_score >= 50:
-        set_print_format(computer_number)
-        print("Game End, Player 2 Win !")
+    if is_win:
         break
-
     count += 1
-    set_print_format(computer_number)
-    
+    if computer_number == 1:
+        print(f"Player {count+1}'s Turn !")
+        while player_2.check_over_25():
+            if not player_2.roll():
+                break
+
+        if player_2.total_score >= 50:
+            set_print_format(computer_number)
+            print("Game End, Player 2 Win !")
+            break
+        set_print_format(computer_number)
+        count +=1
+    elif computer_number == 2:
+        print(f"Player {count+1}'s Turn !")
+        while player_2.check_over_25():
+            if not player_2.roll():
+                break
+
+        if player_2.total_score >= 50:
+            set_print_format(computer_number)
+            print("Game End, Player 2 Win !")
+            break
+        set_print_format(computer_number)
+        count +=1
+
+        print(f"Player {count+1}'s Turn !")
+        while player_3.check_over_25():
+            if not player_3.roll():
+                break
+
+        if player_3.total_score >= 50:
+            set_print_format(computer_number)
+            print("Game End, Player 3 Win !")
+            break
+        set_print_format(computer_number)
+        count +=1
+    elif computer_number == 3:
+        print(f"Player {count+1}'s Turn !")
+        while player_2.check_over_25():
+            if not player_2.roll():
+                break
+
+        if player_2.total_score >= 50:
+            set_print_format(computer_number)
+            print("Game End, Player 2 Win !")
+            break
+        set_print_format(computer_number)
+        count +=1
+
+        print(f"Player {count+1}'s Turn !")
+        while player_3.check_over_25():
+            if not player_3.roll():
+                break
+
+        if player_3.total_score >= 50:
+            set_print_format(computer_number)
+            print("Game End, Player 3 Win !")
+            break
+        set_print_format(computer_number)
+        count +=1
+
+        print(f"Player {count+1}'s Turn !")
+        while player_4.check_over_25():
+            if not player_4.roll():
+                break
+
+        if player_4.total_score >= 50:
+            set_print_format(computer_number)
+            print("Game End, Player 4 Win !")
+            break
+        set_print_format(computer_number)
+        count +=1
+
 
                 
                 
