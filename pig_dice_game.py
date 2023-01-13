@@ -10,13 +10,16 @@ class Player:
     def roll(self):
         dice_number = randint(1,6)
         if dice_number == 1:
-            return
+            self.now_score = 0
+            return dice_number
         else:
             self.now_score += dice_number
+            return dice_number
 
     def stop(self,now_score):
         self.total_score += now_score
-        if self.total_score > 50:
+        self.now_score = 0
+        if self.total_score >= 50:
             return
 
 
@@ -30,13 +33,15 @@ class Computer:
     def roll(self):
         dice_number = randint(1,6)
         while self.now_score < 25:
-            if dice_number == 1:            self.now_score = 0
+            if dice_number == 1:            
+                self.now_score = 0
                 return
             else:
                 self.now_score += dice_number
 
     def stop(self):
         self.total_score += now_score
+        self.now_score = 0
         if self.total_score >= 50:
             return
 
@@ -89,12 +94,22 @@ def set_print_format(number):
         print("|                             |                              |                              |                              |")
         print("----------------------------------------------------------------------------------------------------------------------------")
 
-
-
 player_1 = Player()
-player_2 = Player()
-player_3 = Player()
-player_4 = Player()
 computer_number = int(input("Choose Enemy number do you want to fight !!(1~3) >> "))
+for i in range(computer_number):
+    globals()[f"player_{i+2}"] = Computer()
+
+choice = input("Choice !! Roll the dice(Y), or STOP(S) >> ")
+if choice == 'Y':
+    while True:
+        dice_number = player_1.roll()
+        print(f"Dice Number : {dice_number} !!")
+        set_print_format(computer_number)
+        choice = input("Choice !! Roll the dice(Y), or STOP(S) >> ")
+        if choice == 'S':
+            player_1.stop(player_1.now_score) 
+            break
+
+
 set_print_format(computer_number)
 
