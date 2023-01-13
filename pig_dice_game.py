@@ -20,7 +20,19 @@ class Player:
         self.total_score += now_score
         self.now_score = 0
         if self.total_score >= 50:
-            return
+            return False
+        
+        return True
+
+    def play_game(self):
+        print("Player 1's Turn !")
+        dice_number = self.roll()
+        print(f"Dice Number : {dice_number} !!")
+        if dice_number == 1:
+            return dice_number
+        set_print_format(computer_number)
+        choice = input("Choice !! Roll the dice(Y), or STOP(S) >> ")
+        return choice
 
 
 class Computer:
@@ -32,23 +44,28 @@ class Computer:
 
     def roll(self):
         dice_number = randint(1,6)
-        while self.now_score < 25:
-            if dice_number == 1:            
-                self.now_score = 0
-                return
-            else:
-                self.now_score += dice_number
+        if dice_number == 1:
+            self.now_score = 0
+            return False
+        else:
+            self.now_score += dice_number
+            return True
 
     def stop(self):
-        self.total_score += now_score
+        self.total_score += self.now_score
         self.now_score = 0
         if self.total_score >= 50:
-            return
+            return False
+        
+        return True
 
     def check_over_25(self):
         if self.now_score >= 25:
-            stop()
-            return
+            self.stop()
+            return False
+        
+        return True
+
 
 def set_print_format(number):
     if number == 1:
@@ -94,22 +111,40 @@ def set_print_format(number):
         print("|                             |                              |                              |                              |")
         print("----------------------------------------------------------------------------------------------------------------------------")
 
+
 player_1 = Player()
 computer_number = int(input("Choose Enemy number do you want to fight !!(1~3) >> "))
 for i in range(computer_number):
     globals()[f"player_{i+2}"] = Computer()
 
-choice = input("Choice !! Roll the dice(Y), or STOP(S) >> ")
-if choice == 'Y':
-    while True:
-        dice_number = player_1.roll()
-        print(f"Dice Number : {dice_number} !!")
-        set_print_format(computer_number)
+count = 0
+while True:
+    print("Player 1's Trun !")
+    if count%(computer_number+1) == 0:
         choice = input("Choice !! Roll the dice(Y), or STOP(S) >> ")
-        if choice == 'S':
-            player_1.stop(player_1.now_score) 
+        if choice == 'Y':
+            while True:
+                choice = player_1.play_game()
+                if choice == 1:
+                    break
+                if choice == 'S':
+                    if player_1.stop(player_1.now_score):
+                        break
+
+    count += 1
+    print(f"Player {i+2}'s Turn !")
+    while player_2.check_over_25():
+        if not player_2.roll():
             break
 
+    if player_2.total_score >= 50:
+        set_print_format(computer_number)
+        print("Game End, Player 2 Win !")
+        break
 
-set_print_format(computer_number)
+    count += 1
+    set_print_format(computer_number)
+    
 
+                
+                
