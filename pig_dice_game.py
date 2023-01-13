@@ -72,3 +72,30 @@ player_3 = Player()
 player_4 = Player()
 computer_number = int(input("Choose Enemy number do you want to fight !!(1~3) >> "))
 set_print_format(computer_number)
+
+class Com:
+
+
+    def __init__(self):
+        self.now_score = 0
+        self.total_score = 0
+
+    def roll(self):
+        dice_number = randint(1,6)
+        while self.now_score < 25:
+            if dice_number == 1:
+                self.now_score = 0
+                return
+            else:
+                self.now_score += dice_number
+
+    def stop(self):
+        self.total_score += now_score
+        if self.total_score > 50:
+            return
+
+    def check_over_25(self):
+        if self.now_score >= 25:
+            return stop()
+
+
